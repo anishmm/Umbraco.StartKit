@@ -4,10 +4,19 @@
 		<AssemblyVersion>1.0.7</AssemblyVersion>
 		<Version>1.0.7</Version>
 		<InformationalVersion>1.0.7</InformationalVersion>
-		<Authors>Anish Machappillil</Authors>
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<Authors>Anish Manchapillil</Authors>
+		<ContentTargetFolders>.</ContentTargetFolders>
+		<Product>Umbraco.StartKit.Core</Product>
+		<PackageId>UmbracoStartKit.Core</PackageId>
+		<Title>Umbraco Starter Kit Core</Title>
+		<Description>Umbraco Basic Starter Kit for Umbraco</Description>
+		<PackageProjectUrl>&gt;https://github.com/anishmm/Umbraco.StartKit</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/anishmm/Umbraco.StartKit</RepositoryUrl>
+		<RepositoryType>Git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Umbraco.Cms" Version="10.2.1" />
