@@ -37,7 +37,6 @@
 		</Content>
 
 		<None Remove="Migrations\package.zip" />
-		<Content Include="logo.png" />
 		<EmbeddedResource Include="Migrations\package.zip" />
 	</ItemGroup>
 

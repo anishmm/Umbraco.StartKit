@@ -2,7 +2,6 @@
 	<PropertyGroup>
 		<StartKitAssetsFilePath>$(MSBuildThisFileDirectory)..\wwwroot\umbracostartkit-assets\**\*.*</StartKitAssetsFilePath>
 		<StartKitViewsFilePath>$(MSBuildThisFileDirectory)..\Views\**\*.*</StartKitViewsFilePath>
-		<StartKitPluginsFilePath>$(MSBuildThisFileDirectory)..\App_Plugins\**\*.*</StartKitPluginsFilePath>
 	</PropertyGroup>
 	<Target Name="CopyStartKitAssets" BeforeTargets="Build">
 		<ItemGroup>
@@ -22,16 +21,6 @@
 		<Copy
 		  SourceFiles="@(StartKitViewsFiles)"
 		  DestinationFiles="@(StartKitViewsFiles->'$(MSBuildProjectDirectory)\Views\%(RecursiveDir)%(Filename)%(Extension)')"
-		  SkipUnchangedFiles="true" />
-	</Target>
-	<Target Name="CopyStartKitPlugins" BeforeTargets="Build">
-		<ItemGroup>
-			<StartKitPluginsFiles Include="$(StartKitPluginsFilePath)" />
-		</ItemGroup>
-		<Message Text="Copying StartKit Views files: $(StartKitPluginsFilePath) - #@(StartKitPluginsFiles->Count()) files"  Importance="high" />
-		<Copy
-		  SourceFiles="@(StartKitPluginsFiles)"
-		  DestinationFiles="@(StartKitPluginsFiles->'$(MSBuildProjectDirectory)\App_Plugins\%(RecursiveDir)%(Filename)%(Extension)')"
 		  SkipUnchangedFiles="true" />
 	</Target>
 </Project>
