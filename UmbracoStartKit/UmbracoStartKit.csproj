@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyVersion>1.0.9</AssemblyVersion>
+		<Version>1.0.9</Version>
+		<InformationalVersion>1.0.9</InformationalVersion>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Authors>Anish Manchapillil</Authors>
+		<ContentTargetFolders>.</ContentTargetFolders>
+		<Product>UmbracoStartKit</Product>
+		<PackageId>UmbracoStartKit</PackageId>
+		<Title>Umbraco Starter Kit</Title>
+		<Description>Umbraco Basic Starter Kit for Umbraco</Description>
+		<PackageProjectUrl>&gt;https://github.com/anishmm/Umbraco.StartKit</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/anishmm/Umbraco.StartKit</RepositoryUrl>
+		<RepositoryType>Git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="build\**\*.*">
+			<Pack>True</Pack>
+			<PackagePath>buildTransitive</PackagePath>
+		</None>
+
+		<Content Include="wwwroot\umbracostartkit-assets\**\*.*">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+
+		<Content Include="Views\**\*.*">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+
+		<None Remove="Migrations\package.zip" />
+		<Content Include="logo.png" />
+		<EmbeddedResource Include="Migrations\package.zip" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.2.1" />
+		<PackageReference Include="Umbraco.StartKit.Core" Version="1.0.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="logo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+</Project>

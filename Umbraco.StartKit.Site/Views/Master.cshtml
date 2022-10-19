@@ -1,0 +1,67 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    Layout = null;
+    var umbracourlalias = Model.Value<string>("umbracourlalias");
+    var noIndexNoFollow = Model.Value<bool>("noIndexNoFollow");
+    var Request = HttpContextAccessor.HttpContext.Request;
+    var canonical = Model.Url(mode: UrlMode.Absolute);
+    bool isHome = Model.Url() == "/";
+
+    if (!string.IsNullOrEmpty(umbracourlalias))
+    {
+        canonical = @String.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, umbracourlalias);
+    }
+    if (string.IsNullOrWhiteSpace(umbracourlalias))
+    {
+        umbracourlalias = "";
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, noimageindex, nofollow, nosnippet">
+    @if (noIndexNoFollow)
+    {
+        <meta name="robots" content="noindex, noimageindex, nofollow, nosnippet">
+    }
+ @*   @await Html.PartialAsync("MetaMomentum/RenderMetaTags", Model.Value("metaData"))*@
+    <meta name="author" content="@Model.Value("CreatorName")">
+    <link rel="canonical" href="@canonical" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="icon" href="@Url.Content("~/images/favicon.ico")" sizes="32x32" />
+    <link rel="icon" href="@Url.Content("~/images/favicon.ico")" sizes="192x192" />
+    <link rel="apple-touch-icon" href="@Url.Content("~/images/favicon.ico")" />
+    <meta name="msapplication-TileImage" content="@Url.Content("~/images/favicon.ico")" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Pacifico" media="all">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @{
+        SmidgeHelper.RequiresCss("~/css/bootstrap.min.css");
+        SmidgeHelper.RequiresCss("~/css/style.css");
+    }
+    @await SmidgeHelper.CssHereAsync(debug: true)
+</head>
+<body class="@Model.Name.Replace(" ","-").ToLower()">
+    <div>
+        @await Html.PartialAsync("Partials/SiteLayout/_header")
+        @RenderBody()
+        @await Html.PartialAsync("Partials/SiteLayout/_Footer")
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.0/dist/aos.js"></script>
+    <script type="text/javascript">AOS.init()</script>
+    @{
+        SmidgeHelper.RequiresJs("~/scripts/jssor.slider-26.1.5.min.js");
+        SmidgeHelper.RequiresJs("~/scripts/custom.js");
+    }
+    @await SmidgeHelper.JsHereAsync(debug: true)
+    @Html.RenderPartialSectionScripts()
+</body>
+</html>

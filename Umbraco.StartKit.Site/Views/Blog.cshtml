@@ -1,0 +1,162 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Blog>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Media
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@using Umbraco.Cms.Core.Services;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject IImageUrlGenerator ImageUrlGenerator
+@inject IUserService UserService;
+
+
+@{
+    Layout = "Master.cshtml";
+    var blogImage = Model.Value<ImageCropperValue>("mainImage");
+    var breadcrumbs = Model.Value<String>("breadcrumbs");
+    var blogCategory = Model.Value<String>("category");
+    var publishedDate = Model.Value<DateTime?>("publishedOn");
+    var blogAuthor = UserService.GetUserById(Model.Value<int>("authorName"));
+
+
+}
+@{
+    IPublishedContent parent = Umbraco.AssignedContentItem.Parent;
+    IEnumerable<IPublishedContent> children = parent.Children;
+    List<int> childrenIds = children.Select(x => x.Id).ToList();
+    int currentIndex = childrenIds.IndexOf(Umbraco.AssignedContentItem.Id);
+
+    IPublishedContent prev = null;
+    IPublishedContent next = null;
+
+    if (currentIndex > 0)
+    {
+        prev = children.ElementAt(currentIndex - 1);
+    }
+
+    if (currentIndex < (children.Count() - 1))
+    {
+        next = children.ElementAt(currentIndex + 1);
+    }
+}
+
+@{
+    SmidgeHelper.RequiresCss("~/css/inner-page.css");
+    SmidgeHelper.RequiresCss("~/css/inner-responsive.css");
+}
+<div class="content-wrap">
+    <div class="main-wrapper wrapper-inner">
+        <div class="content-wrap">
+            <div class="breadcrumb-row">
+                <div class="container">
+                    <ul class="bread-ul" data-aos="fade-up" data-aos-duration="1500">
+                        <li><a href="~/blog" data-wpel-link="internal">OUR INSIGHTS</a></li>
+                        <li><img src="@Url.Content("~/images/breadcrumb-arrow.png")" alt="saffrontech"></li>
+                        @if (!string.IsNullOrWhiteSpace(breadcrumbs))
+                        {
+                            <li>@breadcrumbs</li>
+                        }
+                        else
+                        {
+                            <li class="breadcrumb-cat">@blogCategory</li>
+                        }
+                    </ul>
+                    <h1 class="title">@Model.Value("pageTitle")</h1>
+                    <div class="img">
+
+                        @if (blogImage != null)
+                        {
+                            <img style="width:100%;height:64.53%;max-width:1280px;" src="@Url.GetCropUrl(blogImage, "Detail")" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="@Model.Name()" />
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="mw-1100 section-wrap cms-pages">
+                <div class="inner-cont-wp">
+                    <div class="container">
+                        <div class="blog-meta-data">
+                            <div class="blog-meta-cate">
+                                @if (publishedDate != null)
+                                {
+                                    <span class="date-wp">@publishedDate.Value.ToString("MMM dd, yyyy")</span>
+                                }
+                                @if (blogAuthor != null)
+                                {
+                                    <span class="cate-wp">
+                                        <a href="@Url.Content("~/blog/author/"+blogAuthor.Name.Replace(" ","-").ToLower())" title="Posts by @blogAuthor.Name" rel="author" data-wpel-link="internal">@blogAuthor.Name</a>
+                                    </span>
+                                }
+                            </div>
+                            <div class="view-d">
+                                <div class="timmer" style="margin-right: 15px;"><span>8 mins</span></div>
+                                <div class="views-count">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                    <span> 233 </span>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.GetGridHtml(Model, "pageBody", "plain")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="service-pagination">
+    <div class="container">
+        @if (prev != null)
+        {
+
+            <div class="service-pagination-wrap next-wp">
+                <a href="@prev.Url()" data-wpel-link="internal">
+                    <h3>@prev.Value("category")</h3>
+                    <div class="pagination-info">
+                        <p>@prev.Value("pageTitle")</p>
+                    </div>
+                    <span class="arrow-wp">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="75.8" height="19" viewBox="0 0 75.8 19">
+                            <defs>
+                                <clipPath id="clip-path">
+                                    <path id="Clip_2" data-name="Clip 2" d="M0,0H75.8V19H0Z" transform="translate(0)" fill="#ffe4e4"></path>
+                                </clipPath>
+                            </defs>
+                            <g id="Group_3" data-name="Group 3" transform="translate(0)" clip-path="url(#clip-path)">
+                                <path id="Fill_1" data-name="Fill 1" d="M1,10.5H72.4l-6.8,6.8a.967.967,0,0,0,0,1.4.967.967,0,0,0,1.4,0l8.5-8.5a.967.967,0,0,0,0-1.4L67,.3a.967.967,0,0,0-1.4,0,.967.967,0,0,0,0,1.4l6.8,6.8H1a.945.945,0,0,0-1,1,.945.945,0,0,0,1,1" transform="translate(0)" fill="#ffe4e4"></path>
+                            </g>
+                        </svg>
+                    </span>
+
+                </a>
+            </div>
+        }
+
+
+        @if (next != null)
+        {
+
+            <div class="service-pagination-wrap prev-wp">
+                <a href="@next.Url()" data-wpel-link="internal">
+                    <h3>@next.Value("category")</h3>
+                    <div class="pagination-info">
+                        <p>@next.Value("pageTitle")</p>
+                    </div>
+                    <span class="arrow-wp">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="75.8" height="19" viewBox="0 0 75.8 19">
+                            <defs>
+                                <clipPath id="clip-path">
+                                    <path id="Clip_2" data-name="Clip 2" d="M0,0H75.8V19H0Z" transform="translate(0)" fill="#ffe4e4"></path>
+                                </clipPath>
+                            </defs>
+                            <g id="Group_3" data-name="Group 3" transform="translate(0)" clip-path="url(#clip-path)">
+                                <path id="Fill_1" data-name="Fill 1" d="M1,10.5H72.4l-6.8,6.8a.967.967,0,0,0,0,1.4.967.967,0,0,0,1.4,0l8.5-8.5a.967.967,0,0,0,0-1.4L67,.3a.967.967,0,0,0-1.4,0,.967.967,0,0,0,0,1.4l6.8,6.8H1a.945.945,0,0,0-1,1,.945.945,0,0,0,1,1" transform="translate(0)" fill="#ffe4e4"></path>
+                            </g>
+                        </svg>
+                    </span>
+
+                </a>
+            </div>
+
+        }
+    </div>
+</section>
+

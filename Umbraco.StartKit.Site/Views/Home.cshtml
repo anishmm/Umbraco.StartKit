@@ -1,0 +1,13 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Home>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    Layout = "Master.cshtml";
+}
+<div class="content-wrap">
+    @await Html.PartialAsync("SiteLayout/_homeBanner")
+    @Html.GetGridHtml(Model, "pageBody", "plain")
+</div>
+ 

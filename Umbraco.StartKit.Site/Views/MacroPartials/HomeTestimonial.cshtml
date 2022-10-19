@@ -1,0 +1,42 @@
+﻿@inherits Umbraco.Cms.Web.Common.Macros.PartialViewMacroPage
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@{
+    var selection = Umbraco.Content(Guid.Parse("f1533e1d-489a-465b-8ebe-0f636038af14")).ChildrenOfType("testimonial").Where(x => x.IsVisible());
+}
+@if (selection != null && selection.Count() > 0)
+{
+    int i = 0;
+    <section class="testimonial text-center">
+        <div class="container">
+
+            <div class="heading white-heading">
+                Testimonial
+            </div>
+            <div id="testimonial4" class="carousel slide testimonial4_indicators testimonial4_control_button thumb_scroll_x swipe_x" data-ride="carousel" data-pause="hover" data-interval="5000" data-duration="2000">
+                <div class="carousel-inner" role="listbox">
+                    @foreach (var item in selection)
+                    {
+                        var itemImage = item.Value<IPublishedContent>("Image");
+                        <div class="carousel-item @(i==0?"active":"")">
+                            <div class="testimonial4_slide">
+                                @if (itemImage != null)
+                                {
+                                    <img src="@itemImage.Url()" class="img-circle img-responsive" />
+                                }
+                                <p>@item.Value("message")</p>
+                                <h4>@item.Name()</h4>
+                            </div>
+                        </div>
+                        i++;
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#testimonial4" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#testimonial4" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+        </div>
+    </section>
+}

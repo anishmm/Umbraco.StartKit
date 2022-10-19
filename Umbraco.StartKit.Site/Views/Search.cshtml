@@ -1,0 +1,50 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<SearchContentModel>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using Umbraco.StartKit.Core.Controllers.Surface
+@using Umbraco.StartKit.Core.Models.ViewModels
+
+
+@{
+    Layout = "Master.cshtml";
+    var searchQuery = Context.Request.Query["q"];
+    var page = Context.Request.Query["page"].ToString();
+    int dataCount = 0;
+    int pageNo = 1;
+    if (Model.viewModel != null && Model.viewModel.results != null)
+    {
+        dataCount = Model.viewModel.totalItemCount;
+    }
+    if (!string.IsNullOrWhiteSpace(page))
+    {
+        pageNo = Convert.ToInt32(page);
+    }
+}
+
+@if (Model.viewModel != null && Model.viewModel.results != null && Model.viewModel.results.Count() > 0)
+{
+    <div class="container search-cont-wp">
+        <ul>
+            @{
+                int id = 1;
+            }
+            @foreach (var result in Model.viewModel.results)
+            {
+                int count = (id + ((pageNo - 1) * 10));
+                <li>
+                    <h3>
+                        <span class="post-counter">@count</span>
+                        <a href="@result.Url()" data-wpel-link="internal">@result.Value("pageTitle")</a>
+                    </h3>
+                    <div class="h-readmore">
+                        <a href="@result.Url()" data-wpel-link="internal">Read More</a>
+                    </div>
+                </li>
+                id++;
+            }
+        </ul>
+    </div>
+
+}
+

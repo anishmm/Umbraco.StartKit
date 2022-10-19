@@ -1,0 +1,44 @@
+﻿@inherits Umbraco.Cms.Web.Common.Macros.PartialViewMacroPage
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject IImageUrlGenerator ImageUrlGenerator
+@inject IDataTypeService DataTypeService
+@inject IUserService UserService;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Media
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Services
+@{
+    var selection = Umbraco.Content(Guid.Parse("84a7ed01-61b8-43bf-8d74-5c50094c15de")).ChildrenOfType("blog")
+    .Where(x => x.IsVisible()).Take(3);
+
+} 
+<div class="gallery">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in selection)
+            {
+                var itemImage = item.Value<ImageCropperValue>("mainImage");
+                var itemDate = item.Value<DateTime?>("publishedOn");
+                if (itemDate == null)
+                {
+                    itemDate = item.CreateDate;
+                }
+                var itemAuthor = UserService.GetUserById(item.Value<int>("authorName"));
+                var blogCategory = item.Value<String>("category");
+
+                <div class="col-md-4">
+                   
+                        <div>
+                          <a href="@item.Url()">  <img src="@Url.GetCropUrl(itemImage, "Detail")" alt=""></a>
+                        </div>
+                        <div>
+                            <p> <a href="@item.Url()"><strong>@item.Name()</strong></a></p>
+                            <p>@Html.Raw(item.Value("description"))</p>
+                        </div>
+                    
+                </div>
+            }
+        </div>
+    </div>
+</div>

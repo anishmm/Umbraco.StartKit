@@ -1,0 +1,16 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Blog>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@{
+    Layout = "Master.cshtml";
+    var itemImage = Model.Value<ImageCropperValue>("mainImage");
+
+}<div class="container">
+    <h1>@Model.Value("pageTitle")</h1>
+    @if (itemImage != null)
+    {
+        <img src="@itemImage.Src" class="img-circle img-responsive" />
+    }
+    @Html.GetGridHtml(Model, "pageBody", "plain")
+</div>

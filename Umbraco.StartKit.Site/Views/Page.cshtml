@@ -1,0 +1,11 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = "Master.cshtml";
+    var bannerImage = Model.Value<IPublishedContent>("pageImage");
+    var breadcrumbs = Model.Value<String>("breadcrumbs");
+    var pageCategory = Model.Value<String>("pageCategory");
+}
+<div class="container">
+    @Html.GetGridHtml(Model, "pageBody", "plain")
+</div>

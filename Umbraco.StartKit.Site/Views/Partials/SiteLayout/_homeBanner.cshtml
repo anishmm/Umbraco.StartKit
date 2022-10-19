@@ -1,0 +1,59 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+
+    var selection = Umbraco.Content(Guid.Parse("cefe7f73-fa15-422c-b4c8-8197c6f6500f")).ChildrenOfType("banner").Where(x => x.IsVisible());
+}
+@if (selection != null && selection.Count() > 0)
+{
+    <div id="jssor_1">
+        <!-- Loading Screen -->
+        <div data-u="loading" class="jssorl-009-spin">
+            <img src="~/img/spin.svg" />
+        </div>
+        <div data-u="slides" class="slides">
+            @foreach (var item in selection)
+            {
+                var image = item.Value<IPublishedContent>("mainImage");
+                var subTitle = item.Value<String>("subTitle");
+                var bannerDescription = item.Value<String>("bannerDescription");
+                var bannerLink = item.Value<String>("bannerLink");
+
+                <div data-p="170.00">
+                    <img data-u="image" src="@image.Url()" />
+                    <div>
+                        <h1>@subTitle</h1>
+                        @if (!string.IsNullOrWhiteSpace(bannerDescription))
+                        {
+                            <p>@bannerDescription</p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- Bullet Navigator -->
+        <div data-u="navigator" class="jssorb101" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
+            <div data-u="prototype" class="i">
+                <svg viewbox="0 0 16000 16000">
+                    <circle class="co" cx="8000" cy="8000" r="5000"></circle>
+                    <circle class="ci" cx="8000" cy="8000" r="3000"></circle>
+                </svg>
+            </div>
+        </div>
+        <!-- Arrow Navigator -->
+        <div data-u="arrowleft" class="jssora051 left_arrow" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
+            <svg viewbox="0 0 16000 16000">
+                <polyline class="a" points="11040,1920 4960,8000 11040,14080 "></polyline>
+            </svg>
+        </div>
+        <div data-u="arrowright" class="jssora051 right_arrow" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+            <svg viewbox="0 0 16000 16000">
+                <polyline class="a" points="4960,1920 11040,8000 4960,14080 "></polyline>
+            </svg>
+        </div>
+    </div>
+}
+@Html.PartialSectionScripts(
+    @<script>
+             jssor_1_slider_init();
+    </script>
+)
