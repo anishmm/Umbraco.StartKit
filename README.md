@@ -17,7 +17,6 @@ dotnet sln add MyWebsite
 dotnet add MyWebsite package UmbracoStartKit
 
 For better SEO 
-````````````````
 # Install Meta Momentum package 
 Install-Package MetaMomentum.Core -Version 2.1.1
 Uncomment Master.cshtml -> @await Html.PartialAsync("MetaMomentum/RenderMetaTags", Model.Value("metaData"))
