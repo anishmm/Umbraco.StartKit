@@ -2,7 +2,7 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.XmlSiteMap>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
-	Layout = "Master.cshtml"; 
+	Layout = ""; 
     Context.Response.ContentType = "text/xml";
     IPublishedContent siteHomePage = Model.Root(); 
     
