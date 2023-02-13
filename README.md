@@ -1,12 +1,12 @@
-﻿# Umbraco Starter Kit for Umbraco v10
+﻿# Umbraco Starter Kit for Umbraco v11
 
-This is a starter kit for Umbraco v10
+This is a starter kit for Umbraco v11.1.0
 
 [![NuGet version (UmbracoStartKit)](https://img.shields.io/nuget/v/UmbracoStartKit.svg?style=flat-square)](https://www.nuget.org/packages/UmbracoStartKit/)
 
 
 ## If you want a really quick way to get it installed and test it out
-Make sure you have downloaded the latest [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0), then copy and paste this into Command Prompt or Windows Terminal or whatever you use:
+Make sure you have downloaded the latest [.NET 7 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/7.0), then copy and paste this into Command Prompt or Windows Terminal or whatever you use:
 
 ```
 # Ensure we have the latest Umbraco templates

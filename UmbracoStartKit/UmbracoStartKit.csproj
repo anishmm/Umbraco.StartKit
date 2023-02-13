@@ -2,9 +2,9 @@
 
 	<PropertyGroup>
 		<AssemblyVersion>1.0.10</AssemblyVersion>
-		<Version>1.0.10</Version>
+		<Version>1.0.11</Version>
 		<InformationalVersion>1.0.10</InformationalVersion>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<Authors>Anish Manchapillil</Authors>
@@ -13,7 +13,7 @@
 		<PackageId>UmbracoStartKit</PackageId>
 		<Title>Umbraco Starter Kit</Title>
 		<Description>Umbraco Basic Starter Kit for Umbraco</Description>
-		<PackageProjectUrl>&gt;https://github.com/anishmm/Umbraco.StartKit</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/anishmm/Umbraco.StartKit</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/anishmm/Umbraco.StartKit</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -48,8 +48,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.2.1" />
-		<PackageReference Include="UmbracoStartKit.Core" Version="1.0.7" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="11.1.0" />
+		<PackageReference Include="UmbracoStartKit.Core" Version="1.0.8" />
 	</ItemGroup>
 
 	<ItemGroup>

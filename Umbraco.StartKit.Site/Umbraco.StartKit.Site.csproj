@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="MetaMomentum.Core" Version="2.1.1" />
-    <PackageReference Include="Umbraco.Cms" Version="10.2.1" />
+    <PackageReference Include="Umbraco.Cms" Version="11.1.0" />
   </ItemGroup>
 
   <ItemGroup>
